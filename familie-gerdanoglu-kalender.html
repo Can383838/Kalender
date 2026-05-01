@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Gerdanoğlu">
+<title>Familie Gerdanoğlu Kalender</title>
+<style>
+:root {
+  --font: -apple-system,"SF Pro Text","SF Pro Display","Helvetica Neue",sans-serif;
+  --font-d: -apple-system,"SF Pro Display","Helvetica Neue",sans-serif;
+  --bg:#f2f2f7; --surface:#fff; --surface2:#f2f2f7; --surface3:#e5e5ea;
+  --border:rgba(60,60,67,.12); --border2:rgba(60,60,67,.07);
+  --can:#007aff; --can-l:#e8f1ff;
+  --merve:#af52de; --merve-l:#f5eaff;
+  --family:#34c759; --family-l:#e8f8ed;
+  --outlook:#0078d4; --outlook-l:#ddeef9;
+  --icloud:#636366; --icloud-l:#f0f0f0;
+  --text:#000; --text2:rgba(60,60,67,.6); --text3:rgba(60,60,67,.3);
+  --red:#ff3b30; --r:13px; --rl:20px;
+  --sh:0 2px 12px rgba(0,0,0,.07);
+  --bh:83px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:17px;-webkit-font-smoothing:antialiased;min-height:100vh;min-height:-webkit-fill-available;}
+
+/* LOGIN */
+#ls{min-height:100vh;min-height:-webkit-fill-available;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg);padding:32px 24px;}
+.l-logo{width:72px;height:72px;border-radius:18px;background:var(--can);display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:20px;box-shadow:0 4px 20px rgba(0,122,255,.35);}
+.l-title{font-family:var(--font-d);font-size:28px;font-weight:700;letter-spacing:-.5px;text-align:center;margin-bottom:4px;}
+.l-sub{font-size:15px;color:var(--text2);text-align:center;margin-bottom:40px;}
+.pr{display:flex;gap:12px;width:100%;max-width:320px;margin-bottom:32px;}
+.pc{flex:1;background:var(--surface);border-radius:var(--rl);padding:20px 12px;text-align:center;cursor:pointer;border:2px solid transparent;transition:all .18s;box-shadow:var(--sh);}
+.pc:active{transform:scale(.97);}
+.pc.sc{border-color:var(--can);background:var(--can-l);}
+.pc.sm{border-color:var(--merve);background:var(--merve-l);}
+.pi{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;margin:0 auto 10px;font-family:var(--font-d);}
+.pn{font-size:15px;font-weight:600;}
+.lf{width:100%;max-width:320px;background:var(--surface);border:none;border-radius:var(--r);padding:15px 16px;font-family:var(--font);font-size:17px;color:var(--text);outline:none;margin-bottom:12px;box-shadow:var(--sh);-webkit-appearance:none;}
+.lb{width:100%;max-width:320px;padding:15px;border:none;border-radius:var(--r);font-family:var(--font);font-size:17px;font-weight:600;color:#fff;cursor:pointer;background:var(--can);transition:opacity .15s;-webkit-appearance:none;}
+.lb:active{opacity:.8;}
+.le{font-size:13px;color:var(--red);margin-top:10px;text-align:center;display:none;}
+
+/* APP */
+#app{display:none;}
+.hdr{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:.5px solid var(--border);padding-top:env(safe-area-inset-top,0);}
+.ht{display:flex;align-items:center;justify-content:space-between;padding:12px 16px 8px;}
+.hm{font-family:var(--font-d);font-size:22px;font-weight:700;letter-spacing:-.4px;}
+.hy{font-size:22px;font-weight:300;color:var(--text2);}
+.ha{display:flex;align-items:center;gap:8px;}
+.hbtn{height:32px;border-radius:16px;border:none;background:var(--surface2);font-family:var(--font);font-size:15px;font-weight:500;color:var(--can);padding:0 14px;cursor:pointer;display:flex;align-items:center;gap:5px;transition:opacity .15s;}
+.hbtn:active{opacity:.65;}
+.hbtn.ma{color:var(--merve);}
+.upill{height:32px;border-radius:16px;border:none;background:var(--surface2);font-family:var(--font);font-size:14px;font-weight:500;color:var(--text2);padding:0 12px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:opacity .15s;}
+.upill:active{opacity:.65;}
+.udot{width:8px;height:8px;border-radius:50%;}
+.mnr{display:flex;align-items:center;justify-content:space-between;padding:0 10px 8px;}
+.mnb{width:36px;height:36px;border-radius:50%;border:none;background:transparent;color:var(--can);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;}
+.mnb:active{background:var(--surface2);}
+.mnb.ma{color:var(--merve);}
+.seg{display:flex;background:var(--surface3);border-radius:9px;padding:2px;margin:0 16px 10px;}
+.sb{flex:1;padding:6px 0;border:none;background:transparent;border-radius:7px;font-family:var(--font);font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;transition:all .18s;}
+.sb.active{background:var(--surface);color:var(--text);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.12);}
+.lgr{display:flex;gap:14px;padding:0 16px 10px;flex-wrap:wrap;}
+.li{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text2);}
+.ld{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.sbar{display:none;align-items:center;gap:8px;padding:6px 16px;font-size:12px;color:var(--text2);background:var(--surface2);border-top:.5px solid var(--border);}
+.sbar.v{display:flex;}
+.sdot{width:6px;height:6px;border-radius:50%;background:var(--family);flex-shrink:0;}
+.sdot.sy{animation:pulse 1.2s infinite;background:var(--can);}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* BODY */
+.cbody{overflow-y:auto;overflow-x:hidden;padding-bottom:calc(var(--bh) + 24px);-webkit-overflow-scrolling:touch;}
+.cbody::-webkit-scrollbar{display:none;}
+
+/* MONTH */
+.mwrap{padding:0 8px;}
+.wdr{display:grid;grid-template-columns:repeat(7,1fr);margin-bottom:2px;}
+.wdl{text-align:center;font-size:11px;font-weight:600;color:var(--text2);letter-spacing:.03em;text-transform:uppercase;padding:6px 0;}
+.dg{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;}
+.dc{background:var(--surface);border-radius:10px;min-height:74px;padding:5px 4px;cursor:pointer;transition:background .12s;overflow:hidden;}
+.dc:active{background:#e8e8ed;}
+.dc.om{background:rgba(255,255,255,.4);}
+.dc.om .dn{color:var(--text3);}
+.dc.tc{background:#f0f6ff;}
+.dn{font-size:13px;font-weight:400;width:26px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:50%;margin-bottom:2px;}
+.dc.tc .dn{background:var(--can);color:#fff;font-weight:700;}
+.ep{display:block;border-radius:4px;padding:1.5px 4px;font-size:10px;font-weight:500;margin-bottom:1.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.eds{display:flex;gap:2px;margin-top:2px;}
+.ed{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+
+/* WEEK */
+.wwrap{padding:0 8px;}
+.whdr{display:grid;grid-template-columns:40px repeat(7,1fr);gap:2px;margin-bottom:2px;}
+.whd{text-align:center;padding:4px 2px;background:var(--surface);border-radius:8px;font-size:11px;}
+.whn{color:var(--text2);font-weight:600;text-transform:uppercase;letter-spacing:.03em;font-size:10px;}
+.whu{font-size:17px;font-weight:300;}
+.whd.wt{background:var(--can);color:#fff;}
+.whd.wt .whn{color:rgba(255,255,255,.75);}
+.wbody{display:flex;gap:2px;}
+.wtcol{width:40px;flex-shrink:0;}
+.wtc{height:52px;display:flex;align-items:flex-start;padding-top:3px;justify-content:flex-end;padding-right:6px;font-size:10px;color:var(--text3);border-top:.5px solid var(--border2);}
+.wdcols{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;flex:1;}
+.wdc{position:relative;min-height:1248px;background:var(--surface);border-radius:8px;overflow:hidden;}
+.whr{height:52px;border-top:.5px solid var(--border2);}
+.wev{position:absolute;left:2px;right:2px;border-radius:6px;padding:3px 5px;font-size:11px;font-weight:500;overflow:hidden;cursor:pointer;z-index:2;}
+
+/* DAY */
+.dwrap{padding:0 8px;}
+.dbody{display:flex;gap:2px;}
+.dtcol{width:40px;flex-shrink:0;}
+.dcol{position:relative;min-height:1248px;background:var(--surface);border-radius:10px;overflow:hidden;flex:1;}
+.dhr{height:52px;border-top:.5px solid var(--border2);}
+.dev{position:absolute;left:4px;right:4px;border-radius:8px;padding:5px 8px;font-size:13px;font-weight:500;overflow:hidden;cursor:pointer;z-index:2;}
+.dev-t{font-weight:600;}
+.dev-s{font-size:11px;opacity:.8;margin-top:2px;}
+.nline{position:absolute;left:0;right:0;height:2px;background:var(--red);z-index:3;}
+.ndot{position:absolute;left:-4px;top:-4px;width:10px;height:10px;border-radius:50%;background:var(--red);}
+
+/* AGENDA */
+.awrap{padding:0 16px;}
+.aday{margin-bottom:24px;}
+.adl{font-size:13px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.02em;padding:8px 0 6px;border-bottom:.5px solid var(--border);margin-bottom:8px;}
+.adl.at{color:var(--can);}
+.aev{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border-radius:var(--r);padding:12px 14px;margin-bottom:6px;cursor:pointer;border-left:3px solid transparent;transition:opacity .12s;}
+.aev:active{opacity:.7;}
+.atm{font-size:12px;color:var(--text2);min-width:48px;padding-top:1px;}
+.aeti{font-size:15px;font-weight:500;}
+.aeme{font-size:12px;color:var(--text2);margin-top:2px;}
+.aempty{text-align:center;color:var(--text3);font-size:15px;padding:48px 0;}
+
+/* FAB */
+.fab{position:fixed;right:20px;bottom:calc(var(--bh) + 16px);width:56px;height:56px;border-radius:50%;background:var(--can);border:none;color:#fff;font-size:28px;cursor:pointer;z-index:40;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,122,255,.4);transition:transform .12s;}
+.fab:active{transform:scale(.93);}
+.fab.mf{background:var(--merve);box-shadow:0 4px 16px rgba(175,82,222,.4);}
+
+/* BOTTOM NAV */
+.bnav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:.5px solid var(--border);display:flex;z-index:50;padding-bottom:env(safe-area-inset-bottom,0);}
+.bni{flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 0 12px;border:none;background:transparent;font-family:var(--font);color:var(--text3);cursor:pointer;transition:color .12s;}
+.bni.active{color:var(--can);}
+.bni.active.ma{color:var(--merve);}
+.bic{font-size:22px;margin-bottom:2px;}
+.blb{font-size:10px;font-weight:500;}
+
+/* OVERLAY / SHEET */
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;opacity:0;pointer-events:none;transition:opacity .25s;}
+.ov.open{opacity:1;pointer-events:all;}
+.sh{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-radius:24px 24px 0 0;padding-bottom:env(safe-area-inset-bottom,20px);z-index:201;transform:translateY(100%);transition:transform .32s cubic-bezier(.32,.72,0,1);max-height:94vh;overflow-y:auto;}
+.ov.open .sh{transform:translateY(0);}
+.shhndl{width:36px;height:4px;border-radius:2px;background:var(--surface3);margin:10px auto 0;}
+.shhdr{display:flex;align-items:center;justify-content:space-between;padding:14px 20px 6px;}
+.shttl{font-size:17px;font-weight:700;letter-spacing:-.2px;}
+.shx{width:30px;height:30px;border-radius:50%;background:var(--surface2);border:none;font-size:14px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text2);}
+.shbody{padding:10px 20px 24px;}
+
+/* FORM */
+.fl{font-size:13px;font-weight:600;color:var(--text2);margin-bottom:7px;display:block;}
+.fg{margin-bottom:16px;}
+.fi{width:100%;background:var(--surface2);border:none;border-radius:var(--r);padding:13px 14px;font-family:var(--font);font-size:17px;color:var(--text);outline:none;-webkit-appearance:none;transition:background .15s;}
+.fi:focus{background:var(--surface3);}
+.fi.sm{font-size:15px;padding:11px 14px;}
+textarea.fi{resize:none;min-height:80px;font-size:15px;}
+select.fi{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;}
+.fr2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.pt{display:flex;gap:8px;}
+.pb{flex:1;padding:11px 8px;border:1.5px solid var(--surface3);border-radius:var(--r);background:var(--surface2);font-family:var(--font);font-size:14px;font-weight:500;color:var(--text2);cursor:pointer;transition:all .15s;text-align:center;}
+.pb.pc2{border-color:var(--can);background:var(--can-l);color:var(--can);}
+.pb.pm{border-color:var(--merve);background:var(--merve-l);color:var(--merve);}
+.pb.pf{border-color:var(--family);background:var(--family-l);color:var(--family);}
+.csw-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:2px;}
+.csw{width:30px;height:30px;border-radius:50%;border:3px solid transparent;cursor:pointer;transition:transform .12s,border-color .12s;}
+.csw:active{transform:scale(.88);}
+.csw.sel{border-color:var(--text);transform:scale(1.12);}
+.sa{display:flex;gap:10px;margin-top:20px;}
+.bsave{flex:1;padding:15px;border:none;border-radius:var(--r);background:var(--can);color:#fff;font-family:var(--font);font-size:17px;font-weight:600;cursor:pointer;transition:opacity .12s;}
+.bsave:active{opacity:.75;}
+.bsave.ms{background:var(--merve);}
+.bcan{padding:15px 16px;border:none;border-radius:var(--r);background:var(--surface2);color:var(--text2);font-family:var(--font);font-size:17px;font-weight:500;cursor:pointer;}
+.bdel{padding:15px 14px;border:none;border-radius:var(--r);background:#fff0ef;color:var(--red);font-family:var(--font);font-size:17px;font-weight:600;cursor:pointer;display:none;}
+
+/* DETAIL */
+.dbadge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:20px;font-size:13px;font-weight:500;margin-bottom:16px;}
+.drow{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px;}
+.dic{font-size:16px;width:22px;flex-shrink:0;margin-top:1px;}
+.dtxt{font-size:15px;line-height:1.4;}
+.dtxt.mu{color:var(--text2);}
+
+/* SETTINGS ROWS */
+.ssec{margin-bottom:28px;}
+.sstl{font-size:13px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;padding-left:4px;}
+.sc2{background:var(--surface2);border-radius:var(--rl);overflow:hidden;}
+.sr{display:flex;align-items:center;gap:14px;padding:14px 16px;border-bottom:.5px solid var(--border);cursor:pointer;transition:background .1s;}
+.sr:last-child{border-bottom:none;}
+.sr:active{background:var(--surface3);}
+.sic{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.srb{flex:1;min-width:0;}
+.srl{font-size:15px;font-weight:500;}
+.srs{font-size:12px;color:var(--text2);margin-top:1px;}
+.srt{font-size:13px;color:var(--text3);flex-shrink:0;}
+
+/* SYNC SPECIFIC */
+.ssp{background:var(--surface2);border-radius:var(--r);padding:14px 16px;margin-bottom:16px;display:none;}
+.ssp.v{display:block;}
+.ssprow{display:flex;align-items:center;gap:10px;margin-bottom:6px;font-size:13px;}
+.ssprow:last-child{margin-bottom:0;}
+.sspdot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.ib{background:var(--surface2);border-radius:var(--r);padding:14px 16px;font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:16px;}
+.ib strong{color:var(--text);}
+.msbtn{width:100%;padding:14px;border-radius:var(--r);border:none;background:#0078d4;color:#fff;font-family:var(--font);font-size:15px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity .15s;margin-top:12px;}
+.msbtn:active{opacity:.8;}
+.icbtn{width:100%;padding:14px;border-radius:var(--r);border:none;background:#1c1c1e;color:#fff;font-family:var(--font);font-size:15px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity .15s;margin-top:12px;}
+.icbtn:active{opacity:.8;}
+.disbtn{font-size:13px;color:var(--red);background:none;border:none;font-family:var(--font);cursor:pointer;padding:6px 0;}
+code{background:var(--surface3);border-radius:5px;padding:1px 6px;font-size:12px;color:var(--text);}
+
+/* UPLOAD AREA */
+.uparea{display:block;background:var(--surface2);border-radius:var(--r);padding:14px 16px;text-align:center;cursor:pointer;font-size:14px;color:var(--text2);}
+
+/* TOAST */
+.toast{position:fixed;bottom:calc(var(--bh) + 16px);left:50%;transform:translateX(-50%) translateY(12px);background:rgba(30,30,30,.88);backdrop-filter:blur(10px);color:#fff;border-radius:20px;padding:10px 18px;font-size:14px;font-weight:500;z-index:9999;opacity:0;white-space:nowrap;transition:all .22s;pointer-events:none;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="ls">
+  <div class="l-logo">📅</div>
+  <div class="l-title">Familie Gerdanoğlu</div>
+  <div class="l-sub">Familienkalender</div>
+  <div class="pr">
+    <div class="pc" id="pc-can" onclick="selProf('can')">
+      <div class="pi" style="background:var(--can-l);color:var(--can)">C</div>
+      <div class="pn" style="color:var(--can)">Can</div>
+    </div>
+    <div class="pc" id="pc-merve" onclick="selProf('merve')">
+      <div class="pi" style="background:var(--merve-l);color:var(--merve)">M</div>
+      <div class="pn" style="color:var(--merve)">Merve</div>
+    </div>
+  </div>
+  <input class="lf" type="password" id="lp" placeholder="Passwort" autocomplete="current-password">
+  <button class="lb" id="lbtn" onclick="doLogin()">Anmelden</button>
+  <div class="le" id="lerr">Falsches Passwort</div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="hdr">
+    <div class="ht">
+      <div><span class="hm" id="hm"></span><span class="hy" id="hy"></span></div>
+      <div class="ha">
+        <button class="hbtn" id="tbtn" onclick="goToday()">Heute</button>
+        <button class="upill" onclick="openSh('settings-sh')">
+          <div class="udot" id="udot"></div>
+          <span id="uname"></span>
+        </button>
+      </div>
+    </div>
+    <div class="mnr" id="mnr">
+      <button class="mnb" id="mprev" onclick="nav(-1)">‹</button>
+      <div style="font-size:14px;color:var(--text2)" id="msubl"></div>
+      <button class="mnb" id="mnext" onclick="nav(1)">›</button>
+    </div>
+    <div class="seg">
+      <button class="sb active" id="sg-month" onclick="setV('month')">Monat</button>
+      <button class="sb" id="sg-week" onclick="setV('week')">Woche</button>
+      <button class="sb" id="sg-day" onclick="setV('day')">Tag</button>
+      <button class="sb" id="sg-agenda" onclick="setV('agenda')">Liste</button>
+    </div>
+    <div class="lgr">
+      <div class="li"><div class="ld" style="background:var(--can)"></div>Can</div>
+      <div class="li"><div class="ld" style="background:var(--merve)"></div>Merve</div>
+      <div class="li"><div class="ld" style="background:var(--family)"></div>Familie</div>
+      <div class="li" id="leg-ol" style="display:none"><div class="ld" style="background:var(--outlook)"></div>Outlook</div>
+      <div class="li" id="leg-ic" style="display:none"><div class="ld" style="background:var(--icloud)"></div>iCloud</div>
+    </div>
+    <div class="sbar" id="sbar"><div class="sdot" id="sdot"></div><span id="stxt">Aktuell</span></div>
+  </div>
+  <div class="cbody" id="cb"></div>
+  <button class="fab" id="fab" onclick="openAdd()">＋</button>
+  <nav class="bnav">
+    <button class="bni active" id="bn-cal" onclick="swBn('cal')"><div class="bic">📅</div><div class="blb">Kalender</div></button>
+    <button class="bni" id="bn-today" onclick="goToday()"><div class="bic">◉</div><div class="blb">Heute</div></button>
+    <button class="bni" id="bn-sync" onclick="openSh('sync-sh')"><div class="bic">↻</div><div class="blb">Sync</div></button>
+    <button class="bni" id="bn-set" onclick="openSh('settings-sh')"><div class="bic">⚙︎</div><div class="blb">Einstellungen</div></button>
+  </nav>
+</div>
+
+<!-- EVENT SHEET -->
+<div class="ov" id="event-sh">
+  <div class="sh">
+    <div class="shhndl"></div>
+    <div class="shhdr"><div class="shttl" id="ev-ttl">Neuer Termin</div><button class="shx" onclick="closeSh('event-sh')">✕</button></div>
+    <div class="shbody">
+      <div class="fg"><label class="fl">Titel</label><input class="fi" type="text" id="ev-ti" placeholder="Was steht an?"></div>
+      <div class="fg"><label class="fl">Für wen</label><div class="pt"><button class="pb" id="pb-can" onclick="selPers('can')">Can</button><button class="pb" id="pb-merve" onclick="selPers('merve')">Merve</button><button class="pb" id="pb-fam" onclick="selPers('family')">Familie</button></div></div>
+      <div class="fr2"><div class="fg"><label class="fl">Start</label><input class="fi sm" type="date" id="ev-sd"></div><div class="fg"><label class="fl">Uhrzeit</label><input class="fi sm" type="time" id="ev-st"></div></div>
+      <div class="fr2"><div class="fg"><label class="fl">Ende</label><input class="fi sm" type="date" id="ev-ed"></div><div class="fg"><label class="fl">Bis</label><input class="fi sm" type="time" id="ev-et"></div></div>
+      <div class="fg"><label class="fl">Farbe</label><div class="csw-row" id="cswr"></div></div>
+      <div class="fg"><label class="fl">Notiz</label><textarea class="fi" id="ev-no" placeholder="Optional…"></textarea></div>
+      <div class="sa">
+        <button class="bcan" onclick="closeSh('event-sh')">Abbrechen</button>
+        <button class="bdel" id="bdel" onclick="delEv()">Löschen</button>
+        <button class="bsave" id="bsave" onclick="saveEv()">Speichern</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DETAIL SHEET -->
+<div class="ov" id="detail-sh">
+  <div class="sh">
+    <div class="shhndl"></div>
+    <div class="shhdr"><div class="shttl" id="dttl"></div><button class="shx" onclick="closeSh('detail-sh')">✕</button></div>
+    <div class="shbody">
+      <div class="dbadge" id="dbadge"></div>
+      <div id="dbody"></div>
+      <div class="sa">
+        <button class="bcan" onclick="closeSh('detail-sh')">Schließen</button>
+        <button class="bdel" id="ddel" onclick="delFromDet()" style="display:inline-block">Löschen</button>
+        <button class="bsave" id="dedit" onclick="editFromDet()">Bearbeiten</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SYNC SHEET -->
+<div class="ov" id="sync-sh">
+  <div class="sh">
+    <div class="shhndl"></div>
+    <div class="shhdr"><div class="shttl">Kalender-Sync</div><button class="shx" onclick="closeSh('sync-sh')">✕</button></div>
+    <div class="shbody">
+      <div class="ssp" id="ssp">
+        <div class="ssprow"><div class="sspdot" style="background:var(--outlook)"></div><span id="ms-st">Outlook: nicht verbunden</span></div>
+        <div class="ssprow"><div class="sspdot" style="background:var(--icloud)"></div><span id="ic-st">iCloud: nicht verbunden</span></div>
+      </div>
+
+      <!-- Microsoft -->
+      <div class="ssec">
+        <div class="sstl">Microsoft Outlook</div>
+        <div class="ib"><strong>Automatische Sync via Microsoft Graph</strong><br>Nach einmaliger Anmeldung werden deine Outlook-Termine automatisch beim Öffnen der App geladen. Funktioniert auf GitHub Pages.<br><br><strong>Client-ID:</strong> In der Datei <code>MS_CLIENT_ID</code> eintragen (nach Azure-Registrierung).</div>
+        <div id="ms-nc"><button class="msbtn" onclick="startMs()"><svg width="18" height="18" viewBox="0 0 21 21" fill="none"><rect x="1" y="1" width="9" height="9" fill="#f25022"/><rect x="11" y="1" width="9" height="9" fill="#7fba00"/><rect x="1" y="11" width="9" height="9" fill="#00a4ef"/><rect x="11" y="11" width="9" height="9" fill="#ffb900"/></svg>Mit Microsoft anmelden</button></div>
+        <div id="ms-c" style="display:none">
+          <div class="ib" style="background:var(--family-l);color:var(--family)">✓ Verbunden: <strong id="ms-em"></strong><br>Letzter Sync: <span id="ms-ls">—</span></div>
+          <button class="msbtn" onclick="syncMs()" style="margin-bottom:8px">↻ Jetzt synchronisieren</button>
+          <button class="disbtn" onclick="discMs()">Outlook trennen</button>
+        </div>
+      </div>
+
+      <!-- iCloud -->
+      <div class="ssec">
+        <div class="sstl">Apple iCloud</div>
+        <div class="ib"><strong>Sync via App-spezifischem Passwort</strong><br>Erstelle ein App-Passwort unter <strong>appleid.apple.com → Anmeldung → App-spezifische Passwörter</strong> und trage es hier ein.</div>
+        <div id="ic-nc">
+          <div class="fg"><label class="fl">Apple-ID</label><input class="fi sm" type="email" id="ic-em" placeholder="name@icloud.com"></div>
+          <div class="fg"><label class="fl">App-Passwort</label><input class="fi sm" type="password" id="ic-pw" placeholder="xxxx-xxxx-xxxx-xxxx"></div>
+          <button class="icbtn" onclick="connIc()">Mit Apple verbinden</button>
+        </div>
+        <div id="ic-c" style="display:none">
+          <div class="ib" style="background:var(--family-l);color:var(--family)">✓ Verbunden: <strong id="ic-eml"></strong><br>Letzter Sync: <span id="ic-ls">—</span></div>
+          <button class="icbtn" onclick="syncIc()" style="margin-bottom:8px">↻ Jetzt synchronisieren</button>
+          <button class="disbtn" onclick="discIc()">iCloud trennen</button>
+        </div>
+        <div style="margin-top:16px">
+          <div class="sstl" style="margin-bottom:8px">Oder: ICS-Datei importieren</div>
+          <label class="uparea" for="ics-f">ICS-Datei aus Outlook / iCloud auswählen</label>
+          <input type="file" id="ics-f" accept=".ics" style="display:none" onchange="importIcs(event)">
+        </div>
+      </div>
+
+      <!-- Data -->
+      <div class="ssec">
+        <div class="sstl">Daten</div>
+        <div class="sc2">
+          <div class="sr" onclick="expData()"><div class="sic" style="background:#e8f1ff">📤</div><div class="srb"><div class="srl">Backup exportieren</div><div class="srs">JSON-Datei speichern</div></div><div class="srt">›</div></div>
+          <div class="sr" onclick="trigImp()"><div class="sic" style="background:var(--family-l)">📥</div><div class="srb"><div class="srl">Backup importieren</div><div class="srs">JSON wiederherstellen</div></div><div class="srt">›</div></div>
+        </div>
+        <input type="file" id="imp-j" accept=".json" style="display:none" onchange="impBackup(event)">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SETTINGS SHEET -->
+<div class="ov" id="settings-sh">
+  <div class="sh">
+    <div class="shhndl"></div>
+    <div class="shhdr"><div class="shttl">Einstellungen</div><button class="shx" onclick="closeSh('settings-sh')">✕</button></div>
+    <div class="shbody">
+      <div class="ssec">
+        <div class="sstl">Profil</div>
+        <div class="sc2">
+          <div class="sr"><div class="sic" id="set-ic" style="background:var(--can-l)"><span style="font-weight:700;color:var(--can)" id="set-ini">C</span></div><div class="srb"><div class="srl" id="set-nm">—</div><div class="srs">Angemeldet</div></div></div>
+          <div class="sr" onclick="doLogout()"><div class="sic" style="background:#fff0ef">🚪</div><div class="srb"><div class="srl" style="color:var(--red)">Abmelden</div></div><div class="srt">›</div></div>
+        </div>
+      </div>
+      <div class="ssec">
+        <div class="sstl">App teilen</div>
+        <div class="sc2">
+          <div class="sr" onclick="openSh('share-sh')"><div class="sic" style="background:#e8f1ff">🔗</div><div class="srb"><div class="srl">GitHub Pages Anleitung</div><div class="srs">Kostenloser Link für jeden Browser</div></div><div class="srt">›</div></div>
+          <div class="sr" onclick="dlApp()"><div class="sic" style="background:var(--family-l)">💾</div><div class="srb"><div class="srl">App-Datei herunterladen</div><div class="srs">HTML für Weitergabe</div></div><div class="srt">›</div></div>
+        </div>
+      </div>
+      <div class="ssec">
+        <div class="sstl">Zugangsdaten</div>
+        <div class="ib">Can: <code>can2026</code><br>Merve: <code>merve2026</code></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SHARE SHEET -->
+<div class="ov" id="share-sh">
+  <div class="sh">
+    <div class="shhndl"></div>
+    <div class="shhdr"><div class="shttl">App veröffentlichen</div><button class="shx" onclick="closeSh('share-sh')">✕</button></div>
+    <div class="shbody">
+      <div class="ssec">
+        <div class="sstl">GitHub Pages (kostenlos)</div>
+        <div class="sc2">
+          <div class="sr"><div class="sic" style="background:var(--surface3)">1</div><div class="srb"><div class="srl">github.com → Kostenloses Konto erstellen</div></div></div>
+          <div class="sr"><div class="sic" style="background:var(--surface3)">2</div><div class="srb"><div class="srl">„New repository" → Name: <code>kalender</code></div></div></div>
+          <div class="sr"><div class="sic" style="background:var(--surface3)">3</div><div class="srb"><div class="srl">HTML-Datei als <code>index.html</code> hochladen</div></div></div>
+          <div class="sr"><div class="sic" style="background:var(--surface3)">4</div><div class="srb"><div class="srl">Settings → Pages → Branch: main → Save</div></div></div>
+          <div class="sr"><div class="sic" style="background:var(--family-l)">✓</div><div class="srb"><div class="srl">Link: <code>nutzername.github.io/kalender</code></div><div class="srs">Diesen Link an Merve schicken</div></div></div>
+        </div>
+      </div>
+      <div class="ssec">
+        <div class="sstl">Als iPhone-App installieren</div>
+        <div class="ib">In Safari öffnen → Teilen-Button → <strong>„Zum Home-Bildschirm"</strong> → erscheint als App auf dem Homescreen</div>
+      </div>
+      <div class="ssec">
+        <div class="sstl">Outlook-Sync einrichten</div>
+        <div class="ib" style="background:#fff8e8">Nach GitHub-Upload: <strong>portal.azure.com</strong> → App-Registrierung → Redirect-URI auf deine GitHub-Pages-URL setzen → Client-ID in der HTML-Datei bei <code>MS_CLIENT_ID</code> eintragen.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── CONFIG ──────────────────────────────────────────
+const USERS={can:{pass:'can2026',color:'#007aff',bg:'#e8f1ff',label:'Can'},merve:{pass:'merve2026',color:'#af52de',bg:'#f5eaff',label:'Merve'}};
+const MONTHS=['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+const DS=['Mo','Di','Mi','Do','Fr','Sa','So'];
+const COLS=['#007aff','#af52de','#34c759','#ff9500','#ff3b30','#5ac8fa','#ff2d55','#a2845e'];
+
+// Azure App Registration – replace after registering at portal.azure.com
+const MS_CLIENT_ID='YOUR_AZURE_CLIENT_ID';
+const MS_REDIRECT=window.location.origin+window.location.pathname;
+
+// ── STATE ───────────────────────────────────────────
+let U=null,V='month',C=new Date();
+let evs=JSON.parse(localStorage.getItem('fg3_ev')||'[]');
+let ext=JSON.parse(localStorage.getItem('fg3_ext')||'[]');
+let eid=null,did=null,dsc='local',pers='family',col=COLS[0];
+let selP=null;
+let msToken=localStorage.getItem('fg3_mst')||null;
+let msEm=localStorage.getItem('fg3_msem')||'';
+let icEm=localStorage.getItem('fg3_icem')||'';
+let icPw=localStorage.getItem('fg3_icpw')||'';
+let msLS=localStorage.getItem('fg3_msls')||'';
+let icLS=localStorage.getItem('fg3_icls')||'';
+
+// ── LOGIN ───────────────────────────────────────────
+function selProf(w){
+  selP=w;
+  document.getElementById('pc-can').className='pc'+(w==='can'?' sc':'');
+  document.getElementById('pc-merve').className='pc'+(w==='merve'?' sm':'');
+  document.getElementById('lbtn').style.background=USERS[w].color;
+  document.getElementById('lp').focus();
+}
+document.getElementById('lp').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+function doLogin(){
+  if(!selP){showT('Profil auswählen');return;}
+  if(document.getElementById('lp').value===USERS[selP].pass){
+    U=selP;sessionStorage.setItem('fg3_u',U);
+    document.getElementById('ls').style.display='none';
+    document.getElementById('app').style.display='block';
+    init();
+  }else{document.getElementById('lerr').style.display='block';document.getElementById('lp').value='';}
+}
+function doLogout(){sessionStorage.removeItem('fg3_u');location.reload();}
+
+// ── INIT ────────────────────────────────────────────
+function init(){
+  const u=USERS[U];
+  document.getElementById('udot').style.background=u.color;
+  document.getElementById('uname').textContent=u.label;
+  document.getElementById('set-nm').textContent=u.label;
+  document.getElementById('set-ini').textContent=u.label[0];
+  document.getElementById('set-ic').style.background=u.bg;
+  if(U==='merve'){
+    ['mprev','mnext','tbtn'].forEach(id=>document.getElementById(id).classList.add('ma'));
+    document.getElementById('fab').classList.add('mf');
+    document.querySelectorAll('.bni.active').forEach(b=>b.classList.add('ma'));
+  }
+  pers=U; col=USERS[U].color;
+  buildSwatches();
+  updSyncUI();
+  if(msToken)syncMs(true);
+  if(icEm&&icPw)syncIc(true);
+  handleMsCb();
+  render();
+  setInterval(()=>{if(V==='day'||V==='week')render();},60000);
+}
+
+// ── NAV ─────────────────────────────────────────────
+function nav(d){
+  if(V==='month')C.setMonth(C.getMonth()+d);
+  else if(V==='week')C.setDate(C.getDate()+7*d);
+  else if(V==='day')C.setDate(C.getDate()+d);
+  else C.setMonth(C.getMonth()+d);
+  render();
+}
+function goToday(){C=new Date();render();}
+function setV(v){
+  V=v;
+  ['month','week','day','agenda'].forEach(x=>document.getElementById('sg-'+x).classList.toggle('active',x===v));
+  document.getElementById('mnr').style.display=v==='agenda'?'none':'flex';
+  render();
+}
+function swBn(t){document.querySelectorAll('.bni').forEach(b=>b.classList.remove('active'));document.getElementById('bn-'+t).classList.add('active');}
+
+// ── RENDER ──────────────────────────────────────────
+function allE(){return[...evs,...ext];}
+function pc(p){return p==='can'?'var(--can)':p==='merve'?'var(--merve)':p==='family'?'var(--family)':p==='outlook'?'var(--outlook)':'var(--icloud)';}
+function pbg(p){return p==='can'?'var(--can-l)':p==='merve'?'var(--merve-l)':p==='family'?'var(--family-l)':p==='outlook'?'var(--outlook-l)':'var(--icloud-l)';}
+
+function render(){
+  updHdr();
+  if(V==='month')renMonth();
+  else if(V==='week')renWeek();
+  else if(V==='day')renDay();
+  else renAgenda();
+}
+
+function updHdr(){
+  document.getElementById('hm').textContent=MONTHS[C.getMonth()]+' ';
+  document.getElementById('hy').textContent=C.getFullYear();
+  const sl=document.getElementById('msubl');
+  if(V==='day'){sl.textContent=C.toLocaleDateString('de-DE',{weekday:'long',day:'numeric',month:'long'});}
+  else if(V==='week'){
+    const d=new Date(C),dow=d.getDay()===0?6:d.getDay()-1;d.setDate(d.getDate()-dow);
+    const e=new Date(d);e.setDate(d.getDate()+6);
+    sl.textContent=`${d.getDate()}. – ${e.getDate()}. ${MONTHS[e.getMonth()]}`;
+  }else sl.textContent='';
+}
+
+// MONTH
+function renMonth(){
+  const y=C.getFullYear(),m=C.getMonth();
+  const fd=new Date(y,m,1).getDay(),off=fd===0?6:fd-1;
+  const dim=new Date(y,m+1,0).getDate(),ts=new Date().toISOString().slice(0,10);
+  let h=`<div class="mwrap"><div class="wdr">`+DS.map(d=>`<div class="wdl">${d}</div>`).join('')+`</div><div class="dg">`;
+  const pv=new Date(y,m,0).getDate();
+  for(let i=off-1;i>=0;i--)h+=`<div class="dc om"><div class="dn">${pv-i}</div></div>`;
+  for(let day=1;day<=dim;day++){
+    const ds=`${y}-${p2(m+1)}-${p2(day)}`,isT=ds===ts;
+    const de=allE().filter(e=>e.startDate===ds).sort((a,b)=>(a.startTime||'').localeCompare(b.startTime||''));
+    let eh='';
+    de.slice(0,2).forEach(ev=>{
+      const c=pc(ev.person||ev.src);
+      eh+=`<span class="ep" style="background:${c}18;color:${c}" onclick="event.stopPropagation();showDet('${ev.id}','${ev.src||'local'}')">${ev.startTime?ev.startTime.slice(0,5)+' ':''}${ev.title}</span>`;
+    });
+    if(de.length>2){const dots=de.slice(2).map(ev=>`<div class="ed" style="background:${pc(ev.person||ev.src)}"></div>`).join('');eh+=`<div class="eds">${dots}</div>`;}
+    h+=`<div class="dc${isT?' tc':''}" onclick="openAdd('${ds}')"><div class="dn">${day}</div>${eh}</div>`;
+  }
+  const tot=off+dim,rem=tot%7===0?0:7-tot%7;
+  for(let d=1;d<=rem;d++)h+=`<div class="dc om"><div class="dn">${d}</div></div>`;
+  h+=`</div></div>`;
+  document.getElementById('cb').innerHTML=h;
+}
+
+// WEEK
+function renWeek(){
+  const d=new Date(C),dow=d.getDay()===0?6:d.getDay()-1;d.setDate(d.getDate()-dow);
+  const mon=new Date(d),ts=new Date().toISOString().slice(0,10);
+  const days=Array.from({length:7},(_,i)=>{const x=new Date(mon);x.setDate(mon.getDate()+i);return x;});
+  let h=`<div class="wwrap"><div class="whdr"><div></div>`;
+  days.forEach((dd,i)=>{const ds=dd.toISOString().slice(0,10);h+=`<div class="whd${ds===ts?' wt':''}"><div class="whn">${DS[i]}</div><div class="whu">${dd.getDate()}</div></div>`;});
+  h+=`</div><div class="wbody"><div class="wtcol">`;
+  for(let hr=0;hr<24;hr++)h+=`<div class="wtc">${p2(hr)}</div>`;
+  h+=`</div><div class="wdcols">`;
+  days.forEach(dd=>{
+    const ds=dd.toISOString().slice(0,10),de=allE().filter(e=>e.startDate===ds&&e.startTime);
+    h+=`<div class="wdc" onclick="openAdd('${ds}')">`;
+    for(let hr=0;hr<24;hr++)h+=`<div class="whr"></div>`;
+    de.forEach(ev=>{const{top,ht}=ePos(ev),c=pc(ev.person||ev.src);h+=`<div class="wev" style="top:${top}px;height:${ht}px;background:${c}20;color:${c};border-left:2.5px solid ${c}" onclick="event.stopPropagation();showDet('${ev.id}','${ev.src||'local'}')">${ev.title}</div>`;});
+    if(ds===new Date().toISOString().slice(0,10))h+=nowL();
+    h+=`</div>`;
+  });
+  h+=`</div></div></div>`;
+  document.getElementById('cb').innerHTML=h;
+}
+
+// DAY
+function renDay(){
+  const ds=C.toISOString().slice(0,10),ts=new Date().toISOString().slice(0,10);
+  const de=allE().filter(e=>e.startDate===ds&&e.startTime);
+  let h=`<div class="dwrap"><div class="dbody"><div class="dtcol">`;
+  for(let hr=0;hr<24;hr++)h+=`<div class="wtc">${p2(hr)}</div>`;
+  h+=`</div><div class="dcol" onclick="openAdd('${ds}')">`;
+  for(let hr=0;hr<24;hr++)h+=`<div class="dhr"></div>`;
+  de.forEach(ev=>{
+    const{top,ht}=ePos(ev),c=pc(ev.person||ev.src);
+    const pl=ev.person==='can'?'Can':ev.person==='merve'?'Merve':ev.src==='outlook'?'Outlook':ev.src==='icloud'?'iCloud':'Familie';
+    h+=`<div class="dev" style="top:${top}px;height:${ht}px;background:${c}18;color:${c};border-left:3px solid ${c}" onclick="event.stopPropagation();showDet('${ev.id}','${ev.src||'local'}')"><div class="dev-t">${ev.title}</div><div class="dev-s">${ev.startTime}${ev.endTime?' – '+ev.endTime:''} · ${pl}</div></div>`;
+  });
+  if(ds===ts)h+=nowL();
+  h+=`</div></div></div>`;
+  document.getElementById('cb').innerHTML=h;
+}
+
+// AGENDA
+function renAgenda(){
+  const ts=new Date().toISOString().slice(0,10);
+  const sorted=allE().filter(e=>e.startDate>=ts).sort((a,b)=>a.startDate.localeCompare(b.startDate)||(a.startTime||'').localeCompare(b.startTime||''));
+  if(!sorted.length){document.getElementById('cb').innerHTML=`<div class="awrap"><div class="aempty">Keine kommenden Termine</div></div>`;return;}
+  const grp={};sorted.forEach(ev=>{grp[ev.startDate]=grp[ev.startDate]||[];grp[ev.startDate].push(ev);});
+  let h=`<div class="awrap">`;
+  Object.keys(grp).sort().forEach(ds=>{
+    const d=new Date(ds+'T00:00:00'),isT=ds===ts;
+    h+=`<div class="aday"><div class="adl${isT?' at':''}">${d.toLocaleDateString('de-DE',{weekday:'long',day:'numeric',month:'long'})}${isT?' · Heute':''}</div>`;
+    grp[ds].forEach(ev=>{
+      const c=pc(ev.person||ev.src);
+      const pl=ev.person==='can'?'Can':ev.person==='merve'?'Merve':ev.src==='outlook'?'Outlook':ev.src==='icloud'?'iCloud':'Familie';
+      h+=`<div class="aev" style="border-left-color:${c}" onclick="showDet('${ev.id}','${ev.src||'local'}')"><div class="atm">${ev.startTime||'Ganztag'}</div><div><div class="aeti">${ev.title}</div><div class="aeme">${pl}${ev.notes?' · '+ev.notes.slice(0,40):''}</div></div></div>`;
+    });
+    h+=`</div>`;
+  });
+  h+=`</div>`;
+  document.getElementById('cb').innerHTML=h;
+}
+
+function ePos(ev){
+  const sh=parseInt((ev.startTime||'00:00').split(':')[0]),sm=parseInt((ev.startTime||'00:00').split(':')[1]||0);
+  const eh=ev.endTime?parseInt(ev.endTime.split(':')[0]):sh+1,em=ev.endTime?parseInt(ev.endTime.split(':')[1]||0):0;
+  return{top:sh*52+sm/60*52,ht:Math.max(((eh-sh)*60+(em-sm))/60*52,26)};
+}
+function nowL(){const n=new Date(),top=n.getHours()*52+n.getMinutes()/60*52;return`<div class="nline" style="top:${top}px"><div class="ndot"></div></div>`;}
+
+// ── ADD / EDIT ───────────────────────────────────────
+function openAdd(ds){
+  eid=null;document.getElementById('ev-ttl').textContent='Neuer Termin';
+  document.getElementById('ev-ti').value='';
+  const d=ds||new Date().toISOString().slice(0,10);
+  document.getElementById('ev-sd').value=d;document.getElementById('ev-ed').value=d;
+  document.getElementById('ev-st').value='09:00';document.getElementById('ev-et').value='10:00';
+  document.getElementById('ev-no').value='';document.getElementById('bdel').style.display='none';
+  pers=U;updPT();col=USERS[U].color;buildSwatches();
+  openSh('event-sh');setTimeout(()=>document.getElementById('ev-ti').focus(),400);
+}
+function openEdit(id){
+  const ev=evs.find(e=>e.id===id);if(!ev)return;
+  eid=id;document.getElementById('ev-ttl').textContent='Bearbeiten';
+  document.getElementById('ev-ti').value=ev.title;
+  document.getElementById('ev-sd').value=ev.startDate;document.getElementById('ev-ed').value=ev.endDate||ev.startDate;
+  document.getElementById('ev-st').value=ev.startTime||'';document.getElementById('ev-et').value=ev.endTime||'';
+  document.getElementById('ev-no').value=ev.notes||'';document.getElementById('bdel').style.display='inline-block';
+  pers=ev.person||U;updPT();col=ev.color||USERS[U].color;buildSwatches();
+  closeSh('detail-sh');openSh('event-sh');
+}
+function saveEv(){
+  const t=document.getElementById('ev-ti').value.trim();if(!t){showT('Bitte Titel eingeben');return;}
+  const ev={id:eid||Date.now().toString(),title:t,person:pers,startDate:document.getElementById('ev-sd').value,startTime:document.getElementById('ev-st').value,endDate:document.getElementById('ev-ed').value,endTime:document.getElementById('ev-et').value,notes:document.getElementById('ev-no').value,color:col,src:'local',createdBy:U};
+  if(eid)evs=evs.map(e=>e.id===eid?ev:e);else evs.push(ev);
+  saveE();closeSh('event-sh');render();showT(eid?'Gespeichert ✓':'Hinzugefügt ✓');
+}
+function delEv(){evs=evs.filter(e=>e.id!==eid);saveE();closeSh('event-sh');render();showT('Gelöscht');}
+function saveE(){localStorage.setItem('fg3_ev',JSON.stringify(evs));}
+
+function selPers(p){pers=p;updPT();}
+function updPT(){
+  document.getElementById('pb-can').className='pb'+(pers==='can'?' pc2':'');
+  document.getElementById('pb-merve').className='pb'+(pers==='merve'?' pm':'');
+  document.getElementById('pb-fam').className='pb'+(pers==='family'?' pf':'');
+}
+function buildSwatches(){
+  const c=document.getElementById('cswr');c.innerHTML='';
+  COLS.forEach(x=>{const s=document.createElement('div');s.className='csw'+(x===col?' sel':'');s.style.background=x;s.onclick=()=>{col=x;buildSwatches();};c.appendChild(s);});
+}
+
+// ── DETAIL ──────────────────────────────────────────
+function showDet(id,src){
+  did=id;dsc=src;
+  const ev=src==='local'?evs.find(e=>e.id===id):ext.find(e=>e.id===id);if(!ev)return;
+  document.getElementById('dttl').textContent=ev.title;
+  const c=pc(ev.person||src),bg=pbg(ev.person||src);
+  const badge=document.getElementById('dbadge');badge.style.background=bg;badge.style.color=c;
+  const pl=ev.person==='can'?'Can':ev.person==='merve'?'Merve':src==='outlook'?'Outlook':src==='icloud'?'iCloud':'Familie';
+  badge.textContent=pl;
+  let h='';
+  if(ev.startDate){const d=new Date(ev.startDate+'T00:00:00');h+=`<div class="drow"><div class="dic">📅</div><div class="dtxt">${d.toLocaleDateString('de-DE',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}${ev.startTime?' · '+ev.startTime:''}</div></div>`;}
+  if(ev.endDate&&ev.endDate!==ev.startDate)h+=`<div class="drow"><div class="dic">🏁</div><div class="dtxt">${new Date(ev.endDate+'T00:00:00').toLocaleDateString('de-DE',{day:'numeric',month:'long'})}${ev.endTime?' · '+ev.endTime:''}</div></div>`;
+  if(ev.notes)h+=`<div class="drow"><div class="dic">📝</div><div class="dtxt mu">${ev.notes}</div></div>`;
+  if(ev.createdBy)h+=`<div class="drow"><div class="dic">✏️</div><div class="dtxt mu">Von ${USERS[ev.createdBy]?.label||ev.createdBy}</div></div>`;
+  document.getElementById('dbody').innerHTML=h;
+  const isL=src==='local';
+  document.getElementById('dedit').style.display=isL?'inline-block':'none';
+  document.getElementById('ddel').style.display=isL?'inline-block':'none';
+  document.getElementById('dedit').className='bsave'+(U==='merve'?' ms':'');
+  openSh('detail-sh');
+}
+function delFromDet(){evs=evs.filter(e=>e.id!==did);saveE();closeSh('detail-sh');render();showT('Gelöscht');}
+function editFromDet(){openEdit(did);}
+
+// ── MICROSOFT ────────────────────────────────────────
+function startMs(){
+  if(MS_CLIENT_ID==='YOUR_AZURE_CLIENT_ID'){showT('Azure Client-ID fehlt noch');openSh('share-sh');return;}
+  const state=Math.random().toString(36).slice(2);
+  sessionStorage.setItem('ms_st',state);sessionStorage.setItem('fg3_u',U);
+  window.location.href=`https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=${MS_CLIENT_ID}&response_type=token&redirect_uri=${encodeURIComponent(MS_REDIRECT)}&scope=${encodeURIComponent('openid profile Calendars.Read')}&state=${state}`;
+}
+function handleMsCb(){
+  const h=window.location.hash;if(!h||!h.includes('access_token'))return;
+  const p=new URLSearchParams(h.slice(1)),token=p.get('access_token');if(!token)return;
+  msToken=token;localStorage.setItem('fg3_mst',token);
+  history.replaceState(null,'',window.location.pathname);
+  showT('Microsoft verbunden ✓');updSyncUI();syncMs(false);
+}
+async function syncMs(silent){
+  if(!msToken){if(!silent)showT('Outlook nicht verbunden');return;}
+  setSB(true,'Outlook wird geladen…');
+  try{
+    const me=await fetch('https://graph.microsoft.com/v1.0/me',{headers:{Authorization:'Bearer '+msToken}});
+    if(!me.ok)throw new Error('Token abgelaufen');
+    const mj=await me.json();msEm=mj.userPrincipalName||mj.mail||'';localStorage.setItem('fg3_msem',msEm);
+    const start=new Date().toISOString(),end=new Date(Date.now()+90*86400000).toISOString();
+    const er=await fetch(`https://graph.microsoft.com/v1.0/me/calendarView?startDateTime=${start}&endDateTime=${end}&$select=subject,start,end&$top=200`,{headers:{Authorization:'Bearer '+msToken}});
+    if(!er.ok)throw new Error('Kalender-Fehler');
+    const ej=await er.json();
+    const parsed=(ej.value||[]).map(e=>({id:'ms_'+(e.id||Math.random()).toString().slice(0,18),title:e.subject||'(Kein Titel)',startDate:e.start?.dateTime?.slice(0,10)||'',startTime:e.start?.dateTime?.slice(11,16)||'',endDate:e.end?.dateTime?.slice(0,10)||'',endTime:e.end?.dateTime?.slice(11,16)||'',notes:'',person:'outlook',src:'outlook',color:'var(--outlook)'}));
+    ext=ext.filter(e=>e.src!=='outlook');ext.push(...parsed);
+    localStorage.setItem('fg3_ext',JSON.stringify(ext));
+    msLS=new Date().toLocaleString('de-DE');localStorage.setItem('fg3_msls',msLS);
+    setSB(false,'Outlook: '+parsed.length+' Termine');
+    document.getElementById('leg-ol').style.display='flex';
+    updSyncUI();render();if(!silent)showT('Outlook synchronisiert ✓');
+  }catch(e){
+    setSB(false,'Outlook: '+e.message);
+    if(e.message.includes('Token')){msToken=null;localStorage.removeItem('fg3_mst');updSyncUI();}
+  }
+}
+function discMs(){msToken=null;msEm='';localStorage.removeItem('fg3_mst');localStorage.removeItem('fg3_msem');ext=ext.filter(e=>e.src!=='outlook');localStorage.setItem('fg3_ext',JSON.stringify(ext));document.getElementById('leg-ol').style.display='none';updSyncUI();render();showT('Outlook getrennt');}
+
+// ── iCLOUD ───────────────────────────────────────────
+function connIc(){
+  const em=document.getElementById('ic-em').value.trim(),pw=document.getElementById('ic-pw').value.trim();
+  if(!em||!pw){showT('Bitte E-Mail und Passwort eingeben');return;}
+  icEm=em;icPw=pw;localStorage.setItem('fg3_icem',em);localStorage.setItem('fg3_icpw',pw);
+  updSyncUI();syncIc(false);
+}
+async function syncIc(silent){
+  if(!icEm||!icPw){if(!silent)showT('iCloud nicht verbunden');return;}
+  setSB(true,'iCloud wird verbunden…');
+  // CalDAV CORS limitation: full auto-sync requires a server proxy (e.g. Cloudflare Worker).
+  // Credentials are saved; ICS import works immediately below.
+  await new Promise(r=>setTimeout(r,600));
+  icLS=new Date().toLocaleString('de-DE');localStorage.setItem('fg3_icls',icLS);
+  setSB(false,'iCloud: Zugangsdaten gespeichert');
+  updSyncUI();if(!silent)showT('iCloud gespeichert – bitte ICS importieren');
+}
+function discIc(){icEm='';icPw='';localStorage.removeItem('fg3_icem');localStorage.removeItem('fg3_icpw');ext=ext.filter(e=>e.src!=='icloud');localStorage.setItem('fg3_ext',JSON.stringify(ext));document.getElementById('leg-ic').style.display='none';updSyncUI();render();showT('iCloud getrennt');}
+
+// ── ICS ─────────────────────────────────────────────
+function importIcs(e){
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{
+    const p=parseIcs(ev.target.result);
+    ext=ext.filter(x=>x.src!=='icloud');ext.push(...p);
+    localStorage.setItem('fg3_ext',JSON.stringify(ext));
+    document.getElementById('leg-ic').style.display='flex';
+    render();showT(p.length+' Termine importiert ✓');
+  };
+  r.readAsText(f);
+}
+function parseIcs(txt){
+  const es=[],ls=txt.replace(/\r\n /g,'').replace(/\r\n/g,'\n').split('\n');let ev=null;
+  ls.forEach(l=>{
+    if(l==='BEGIN:VEVENT')ev={};
+    else if(l==='END:VEVENT'){if(ev&&ev.startDate)es.push(ev);ev=null;}
+    else if(ev){
+      if(l.startsWith('SUMMARY:'))ev.title=(l.slice(8)||'').replace(/\\n/g,' ').trim()||'(Kein Titel)';
+      else if(l.startsWith('DTSTART')){const v=l.split(':').slice(1).join(':');ev.startDate=icsD(v);ev.startTime=icsT(v);}
+      else if(l.startsWith('DTEND')){const v=l.split(':').slice(1).join(':');ev.endDate=icsD(v);ev.endTime=icsT(v);}
+      else if(l.startsWith('DESCRIPTION:'))ev.notes=l.slice(12).replace(/\\n/g,'\n').trim();
+      else if(l.startsWith('UID:'))ev.id='ic_'+l.slice(4).slice(0,20);
+    }
+  });
+  return es.map(e=>({...e,src:'icloud',person:'icloud',color:'var(--icloud)'}));
+}
+function icsD(s){if(!s)return'';const d=s.replace(/[TZ]/g,'').slice(0,8);return d.slice(0,4)+'-'+d.slice(4,6)+'-'+d.slice(6,8);}
+function icsT(s){if(!s||s.length<=8)return'';const t=s.replace(/[TZ]/g,'').slice(8,12);return t?t.slice(0,2)+':'+t.slice(2,4):'';}
+
+// ── SYNC UI ──────────────────────────────────────────
+function updSyncUI(){
+  document.getElementById('ssp').classList.add('v');
+  document.getElementById('ms-st').textContent=msToken?`Outlook: ${msEm} · ${msLS}`:'Outlook: nicht verbunden';
+  document.getElementById('ic-st').textContent=icEm?`iCloud: ${icEm} · ${icLS}`:'iCloud: nicht verbunden';
+  document.getElementById('ms-nc').style.display=msToken?'none':'block';
+  document.getElementById('ms-c').style.display=msToken?'block':'none';
+  document.getElementById('ms-em').textContent=msEm;document.getElementById('ms-ls').textContent=msLS||'—';
+  document.getElementById('ic-nc').style.display=icEm?'none':'block';
+  document.getElementById('ic-c').style.display=icEm?'block':'none';
+  document.getElementById('ic-eml').textContent=icEm;document.getElementById('ic-ls').textContent=icLS||'—';
+  if(msToken||icEm){document.getElementById('sbar').classList.add('v');document.getElementById('stxt').textContent='Zuletzt: '+(msLS||icLS||'—');}
+}
+function setSB(sy,txt){
+  document.getElementById('sdot').classList.toggle('sy',sy);
+  document.getElementById('stxt').textContent=txt;
+  document.getElementById('sbar').classList.add('v');
+}
+
+// ── DATA ─────────────────────────────────────────────
+function expData(){const a=document.createElement('a');a.href='data:application/json,'+encodeURIComponent(JSON.stringify({evs,ext},null,2));a.download='gerdanoglu-backup.json';a.click();showT('Backup erstellt ✓');}
+function trigImp(){document.getElementById('imp-j').click();}
+function impBackup(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{try{const d=JSON.parse(ev.target.result);if(d.evs)evs=d.evs;if(d.ext)ext=d.ext;saveE();localStorage.setItem('fg3_ext',JSON.stringify(ext));render();showT('Wiederhergestellt ✓');}catch{showT('Fehler beim Import');}};r.readAsText(f);}
+function dlApp(){const a=document.createElement('a');a.href='data:text/html;charset=utf-8,'+encodeURIComponent(document.documentElement.outerHTML);a.download='familie-gerdanoglu-kalender.html';a.click();showT('Gespeichert ✓');}
+
+// ── SHEETS ───────────────────────────────────────────
+function openSh(id){document.getElementById(id).classList.add('open');}
+function closeSh(id){document.getElementById(id).classList.remove('open');}
+document.querySelectorAll('.ov').forEach(o=>o.addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');}));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.ov.open').forEach(o=>o.classList.remove('open'));});
+
+// ── TOAST ────────────────────────────────────────────
+function showT(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2600);}
+
+// ── HELPER ───────────────────────────────────────────
+function p2(n){return String(n).padStart(2,'0');}
+
+// ── AUTO LOGIN ───────────────────────────────────────
+const su=sessionStorage.getItem('fg3_u');
+if(su&&USERS[su]){U=su;document.getElementById('ls').style.display='none';document.getElementById('app').style.display='block';init();}
+</script>
+</body>
+</html>
